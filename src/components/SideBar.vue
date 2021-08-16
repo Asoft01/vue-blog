@@ -51,6 +51,9 @@
                 Vue
             </v-chip>
         </v-card>
+        <div class="img">
+            <img src="../assets/images/profile.png" alt="">
+        </div>
     </div>
 </template>
 

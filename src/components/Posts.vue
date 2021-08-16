@@ -4,7 +4,7 @@
             <div class="d-flex justify-between">
                 <div>
                     <v-card-title class="textTitle white--text">
-                        Authentication with Passport
+                        {{  }}
                     </v-card-title>
                     <v-card-text class="subTitle white--text mt-2">
                         A one to one polymorphic relation similar to a simple one to one relation; however, the target model can belong to more 
@@ -34,6 +34,36 @@
         </v-card>
     </div>
 </template>
+
+<script>
+import postService from '@/api/posts'
+export default {
+    name: "Posts",
+    data(){
+        return {
+            posts: []
+        }
+    },
+    created(){
+        this.getPosts()
+    },
+    methods: {
+        getPosts(){
+            postService.getPosts()
+            .then((response) =>{
+                this.posts = response.posts
+                console.table(this.posts);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            // Make Http request to get posts
+            // assigns this.posts to the http response
+
+        }
+    }
+}
+</script>
 
 <style scoped>
     #theme{
