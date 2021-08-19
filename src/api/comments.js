@@ -5,24 +5,18 @@ import axios from 'axios';
 Vue.use(axios);
 
 export default {
-    name: "PostService",
+    name: "CommentService",
 
-    getPosts(){
-        let url = config.POSTS_URL
+    getComments(){
+        let url = config.COMMENTS_URL
         return axios.get(url)
             .then((response) => Promise.resolve(response.data))
             .catch((error) => Promise.reject(error))
     },
-    getPost(id){
-        let url = config.POSTS_URL + '/' + id
-        return axios.get(url)
+    addComments(comments){
+        let url = config.COMMENTS_URL
+        return axios.create(url, comments)
             .then((response) => Promise.resolve(response.data))
             .catch((error) => Promise.reject(error))
-    },
-    addPost(post){
-        let url = config.POSTS_URL
-        return axios.get(url, post)
-            .then((response) => Promise.resolve(response.data))
-            .catch((error) => Promise.reject(error))
-    },
+    }
 }
