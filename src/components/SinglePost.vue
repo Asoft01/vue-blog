@@ -58,6 +58,7 @@
                             <v-form ref="commentsForm" v-model="valid" lazy-validation>
                                 <v-text-field
                                 v-model="commentsForm.name"
+                                :connter = 12
                                 label="First Name"
                                 required
                                 :rules="rules.name">
@@ -117,7 +118,7 @@
 <script>
 import Vue from 'vue';
 import postService from '@/api/posts';
-// import commentsService from '@/api/comments';
+import commentsService from '@/api/comments';
 
 Vue.use(require('vue-moment'));
 
@@ -140,7 +141,7 @@ export default {
             rules: {
                 name: [
                     v => !!v || 'Name field is required',
-                    v => v.length > 10 || 'Name should be less than 15 characters'
+                    v => v.length < 12 || 'Name should be less than 12 characters'
                 ],
                 comment: [
                     v => !!v || 'Comment field is required'
@@ -180,16 +181,24 @@ export default {
         postComment(){
             let self = this;
             this.btnLoading = true;
-            if(this.refs.commentsForm.validate()){
+            if(this.$refs.commentsForm.validate()){
                 let nameStr = self.commentsForm.name;
                 let character = nameStr.charAt(0);
                 self.commentsForm.alphabet= character;
                 self.commentsForm.post_id =self.post.id;
 
-                console.log(self.commentsForm);
+                // console.log(self.commentsForm);
+                commentsService.addComments(self.commentsForm)
+                .then((response) => {
+                    self.finish()
+                })
+                .catch((errors) => console.log(errors))
             }
+        },
+        finish(){
+            this.btnLoading = false
+            this.postCommentsVisible = false
         }
-
     }
 }
 </script>
