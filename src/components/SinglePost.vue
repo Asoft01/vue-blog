@@ -172,7 +172,8 @@ export default {
             .then((response) => {
                 // console.log(response)
                 this.post = response.post;
-                console.log(this.checkComments());
+                this.updatePostsViews()
+                // console.log(this.checkComments());
             })
             .catch((errors) => {
                 console.log(errors)
@@ -188,16 +189,30 @@ export default {
                 self.commentsForm.post_id =self.post.id;
 
                 // console.log(self.commentsForm);
-                commentsService.addComments(self.commentsForm)
+                commentsService
+                .addComments(self.commentsForm)
                 .then((response) => {
-                    self.finish()
+                    console.log(response);
+                    self.finish();
                 })
                 .catch((errors) => console.log(errors))
+            }else{
+                this.btnLoading = false;
+                return false;
             }
         },
         finish(){
-            this.btnLoading = false
-            this.postCommentsVisible = false
+            this.btnLoading = false;
+            this.postCommentsVisible = false;
+            this.getPost(this.post.id);
+        },
+        updatePostsViews(){
+            let editPostView = {}
+            editPostView.id = this.post.id
+            editPostView.views = this.post.views += 1
+            postService.addPost(editPostView)
+            .then(() => {})
+            .catch((errors) => console.log(errors));
         }
     }
 }

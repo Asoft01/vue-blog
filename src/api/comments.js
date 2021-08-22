@@ -15,7 +15,7 @@ export default {
     },
     addComments(comments){
         let url = config.COMMENTS_URL
-        return axios.create(url, comments)
+        return axios.post(url, comments)
             .then((response) => Promise.resolve(response.data))
             .catch((error) => Promise.reject(error))
     }
