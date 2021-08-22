@@ -8,10 +8,11 @@
             <v-app-bar-nav-icon></v-app-bar-nav-icon>  
 
             <v-spacer></v-spacer>
-
-            <v-btn icon>
-                <v-icon style="color:red;">mdi-home</v-icon>
-            </v-btn>
+            <router-link to="/" id="nav-icon">
+                <v-btn icon>
+                    <v-icon>mdi-home</v-icon>
+                </v-btn>
+            </router-link>
         </v-app-bar>
         
             <!-- <v-main>
@@ -25,3 +26,9 @@ export default {
     name: "NavBar"
 }
 </script>
+
+<style scoped>
+    #nav-icon{
+        text-decoration: none;
+    }
+</style>

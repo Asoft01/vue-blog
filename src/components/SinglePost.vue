@@ -209,8 +209,10 @@ export default {
         updatePostsViews(){
             let editPostView = {}
             editPostView.id = this.post.id
-            editPostView.views = this.post.views += 1
-            postService.addPost(editPostView)
+            editPostView.views = this.post.views += 1;
+
+            postService
+            .updatePost(editPostView)
             .then(() => {})
             .catch((errors) => console.log(errors));
         }
